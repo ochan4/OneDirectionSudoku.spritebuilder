@@ -1,4 +1,5 @@
 import Foundation
+import GameKit
 
 class MainScene: CCNode {
     //if a node belongs to a doc class, define as class *new
@@ -7,24 +8,54 @@ class MainScene: CCNode {
     weak var highscoreLabel: CCLabelTTF!
     
     
-    func didLoadFromCCB (){
-        NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "highscore", options: .allZeros, context: nil)
-        updateHighscore()
-        
+//    func didLoadFromCCB (){
+//        NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "highscore", options: .allZeros, context: nil)
+//        
+//    }
+    
+    override func update(delta: CCTime) {
+        highscoreLabel.string = String(GameStateSingleton.sharedInstance.highestscore)
     }
     
-    func updateHighscore() {
-        let newHighscore = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
-        highscoreLabel.string = "\(newHighscore)"
+//    func updateHighscore() {
+//        let newHighscore = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
+//        highscoreLabel.string = "\(newHighscore)"
+//    }
+//    
+//    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+//        if keyPath == "highscore" {
+//            updateHighscore()
+//        }
+//    }
+    
+    //load the mainscene again
+    func restart() {
+        var mainScene = CCBReader.loadAsScene("MainScene")
+        CCDirector.sharedDirector().presentScene(mainScene)
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if keyPath == "highscore" {
-            updateHighscore()
-        }
+    //load the leaderboard scene
+    func leaderBoard() {
+        showLeaderboard()
     }
 }
 
+// MARK: Game Center Handling
+extension MainScene: GKGameCenterControllerDelegate {
+    
+    func showLeaderboard() {
+        var viewController = CCDirector.sharedDirector().parentViewController!
+        var gameCenterViewController = GKGameCenterViewController()
+        gameCenterViewController.gameCenterDelegate = self
+        viewController.presentViewController(gameCenterViewController, animated: true, completion: nil)
+    }
+    
+    // Delegate methods
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+}
 
 //1. setting up classes in xcode
 //define class type #CCNode, CCColor

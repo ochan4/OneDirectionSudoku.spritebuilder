@@ -29,14 +29,14 @@ class Grid: CCNodeColor {
     
     //create an array that store all the final values
     var arrayInArray = [[Int]] ()
+
+    //score system
+    var total: Double = 0.0
     
-    //score system:
-    var count = 0
-    
-    var score: Int = 100 {
+    var score: Int = GameStateSingleton.sharedInstance.highestscore {
         didSet {
             var mainScene = parent as! MainScene
-            mainScene.scoreLabel.string = "\(score)"
+            //mainScene.scoreLabel.string = "\(score)"
         }
     }
     
@@ -84,7 +84,8 @@ class Grid: CCNodeColor {
         for _ in 0..<gridSize {
             x = tileMarginHorizontal
             for _ in 0..<gridSize {
-                let backgroundTile = CCNodeColor.nodeWithColor(CCColor.grayColor())
+                let backgroundTile = CCNodeColor.nodeWithColor(CCColor.whiteColor())
+                backgroundTile.opacity = 0.4
                 backgroundTile.contentSize = CGSize(width: columnWidth, height: columnHeight)
                 backgroundTile.position = CGPoint(x: x, y: y)
                 addChild(backgroundTile)
@@ -116,14 +117,16 @@ class Grid: CCNodeColor {
     }
     
     func generateRandomValues(theNumberInTile: Tile)-> Int{
-        //sudoku versions to generate random numbers from 1 - 4
-        do {
-            randomIndex = Int(arc4random_uniform(UInt32(valuesArray.count)))
-            theNumberInTile.value = valuesArray[randomIndex]
-        } while theNumberInTile.value == 0
-        
-        //after being used in 2048, remove it
-        valuesArray[randomIndex] = 0
+        if valuesArray.isEmpty == false{
+            //sudoku versions to generate random numbers from 1 - 4
+            do {
+                randomIndex = Int(arc4random_uniform(UInt32(valuesArray.count)))
+                theNumberInTile.value = valuesArray[randomIndex]
+            } while theNumberInTile.value == 0
+            
+            //after being used in 2048, remove it
+            valuesArray[randomIndex] = 0
+        }
         return theNumberInTile.value
     }
     
@@ -142,6 +145,8 @@ class Grid: CCNodeColor {
             }
         }
     }
+    
+
     
     //Spawn multiple start tiles
     func spawnStartTiles() {
@@ -314,7 +319,9 @@ class Grid: CCNodeColor {
         // Update game data
         let mergedTile = gridArray[x][y]!
         let otherTile = gridArray[otherX][otherY]!
-        score--
+        
+        //add points
+        scoreSystem()
         
         otherTile.mergedThisRound = true
         
@@ -329,13 +336,45 @@ class Grid: CCNodeColor {
             otherTile.value = otherTile.value
         })
         
+        
         //append the number back once has been merge
         valuesArray.append(otherTile.value)
         //add a loop function here to delete any values in the array that is 0
         deleteAnyValueThatIsZero()
+        if valuesArray.isEmpty && total != 0.88888{
+            endTheGame()
+        }
         
         let sequence = CCActionSequence(array: [moveTo, mergeTile, remove])
         mergedTile.runAction(sequence)
+    }
+    
+    //gain score
+    func scoreSystem() {
+        if score >= 0 && score < 100 {
+            score += 10
+        }
+        
+        if score >= 100 && score < 500 {
+            score += 20
+        }
+        
+        if score >= 500 && score < 2300 {
+            score += 30
+        }
+        
+        if score >= 2300 && score < 5600 {
+            score += 40
+        }
+        
+        if score >= 5600 && score < 10800 {
+            score += 60
+        }
+        if score >= 10800 && score < 10000000 {
+            score += 70
+        }
+        GameStateSingleton.sharedInstance.highestscore = score
+        GameCenterInteractor.sharedInstance.reportHighScoreToGameCenter()
     }
     
     func deleteAnyValueThatIsZero() {
@@ -346,35 +385,39 @@ class Grid: CCNodeColor {
         }
     }
     
-    func win() {
-        endGameWithMessage("You win!")
-    }
     
     func endTheGame() {
-        if checkSudokuWin() == true {
-            win()
-        } else {
-            if count == 17 {
-                score -= 20
-            }
-            if count == 18 {
-                score -= 30
-            }else{
-                score -= 45
-            }
-            endGameWithMessage("You lose! :(")
+        var end: CCNode
+
+        if checkSudokuWin() == 0.88888 {
+            end = (CCBReader.load("GameEnd"))
+            end.position = self.position
+            addChild(end)
+        }else{
+            end = (CCBReader.load("GameLost"))
+            end.position = self.position
+            addChild(end)
         }
     }
     
     func endGameWithMessage(message: String) {
         println(message)
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let highscore = defaults.integerForKey("highscore")
         
-        if score > highscore {
-            defaults.setInteger(score, forKey: "highscore")
-            defaults.synchronize()
-        }
+//        //read NSUserDefault
+//        let defaults = NSUserDefaults.standardUserDefaults()
+//        let highscore = defaults.integerForKey("highscore")
+//        
+//        //write NSUserDefault
+//        if score > highscore {
+//            defaults.setInteger(score, forKey: "highscore")
+//            defaults.synchronize()
+//        }
+        
+        //read and write
+//        let defaults = NSUserDefaults.standardUserDefaults()
+//        let highscore = defaults.integerForKey("highscore")
+//        defaults.setInteger(score, forKey: "highscore")
+//        defaults.synchronize()
     }
     
     //    //this function store 8 arrays in an array called arrayInArray
@@ -390,81 +433,82 @@ class Grid: CCNodeColor {
     //    }
     
     //this function loop each
-    func checkSudokuWin() ->Bool {
+    func checkSudokuWin() ->Double {
         //return value
         var win = true
         
         for j in 0..<gridSize {
-            var countone = 0
-            var counttwo = 0
-            var countthree = 0
-            var countfour = 0
+            var count = 0.00001
+            
             for i in 0..<gridSize{
                 var tile = gridArray [i][j]
-                if tile!.value == 1 {
-                    countone++
-                    println(tile!.value)
-                }
-                
-                if tile!.value == 2 {
-                    counttwo++
-                    println(tile!.value)
-                }
-                
-                if tile!.value == 3{
-                    countthree++
-                    println(tile!.value)
-                }
-                
-                if tile!.value == 4{
-                    countfour++
-                    println(tile!.value)
+                if tile != nil {
+                    if tile!.value == 1 {
+                        count += 0.1
+                        println(tile!.value)
+                    }
+                    
+                    if tile!.value == 2 {
+                        count += 0.01
+                        println(tile!.value)
+                    }
+                    
+                    if tile!.value == 3{
+                        count += 0.001
+                        println(tile!.value)
+                    }
+                    
+                    if tile!.value == 4{
+                        count += 0.0001
+                        println(tile!.value)
+                    }
                 }
                 
             }
-            if countone > 1 || counttwo > 1 || countthree > 1 || countfour > 1 {
-                win = false
+            if count != 0.11111 {
+                total += count
             }
+            println("one line")
+            println(count)
             println("one line")
         }
         
         
         for j in 0..<gridSize {
-            var countone = 0
-            var counttwo = 0
-            var countthree = 0
-            var countfour = 0
+            var count = 0.00001
             for i in 0..<gridSize{
                 var tile = gridArray [j][i]
-                if tile!.value == 1 {
-                    countone++
-                    println(tile!.value)
+                if tile != nil {
+                    
+                    if tile!.value == 1 {
+                        count += 0.1
+                        println(tile!.value)
+                    }
+                    
+                    if tile!.value == 2 {
+                        count += 0.01
+                        println(tile!.value)
+                    }
+                    
+                    if tile!.value == 3{
+                        count += 0.001
+                        println(tile!.value)
+                    }
+                    
+                    if tile!.value == 4{
+                        count += 0.0001
+                        println(tile!.value)
+                    }
                 }
-                
-                if tile!.value == 2 {
-                    counttwo++
-                    println(tile!.value)
-                }
-                
-                if tile!.value == 3{
-                    countthree++
-                    println(tile!.value)
-                }
-                
-                if tile!.value == 4{
-                    countfour++
-                    println(tile!.value)
-                }
-                
             }
-            if countone > 1 || counttwo > 1 || countthree > 1 || countfour > 1 {
-                win = false
+            if count != 0.11111 {
+                total += count
             }
             println("one line")
+            println(count)
+            println("one line")
         }
-        
-        
-        return win
+        return total
     }
     
     func movePossible() -> Bool {

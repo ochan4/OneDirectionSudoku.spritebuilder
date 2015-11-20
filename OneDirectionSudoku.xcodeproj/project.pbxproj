@@ -64,6 +64,15 @@
 		927F61BB196C771E000F43EF /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		9B4C153D1BFE835E005D7A56 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C153C1BFE835E005D7A56 /* Grid.swift */; };
 		9B4C15431BFE837D005D7A56 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C15421BFE837D005D7A56 /* Tile.swift */; };
+		9B4C15631BFEAACD005D7A56 /* Liam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C15621BFEAACD005D7A56 /* Liam.swift */; };
+		9B4C15651BFEB7A1005D7A56 /* Louis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C15641BFEB7A1005D7A56 /* Louis.swift */; };
+		9B4C15671BFEB7AD005D7A56 /* Niall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C15661BFEB7AD005D7A56 /* Niall.swift */; };
+		9B4C15691BFEB7BA005D7A56 /* Zayn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C15681BFEB7BA005D7A56 /* Zayn.swift */; };
+		9B4C15711BFF1EB7005D7A56 /* GameCenterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C15701BFF1EB7005D7A56 /* GameCenterInteractor.swift */; };
+		9B4C15731BFF1F1C005D7A56 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C15721BFF1F1C005D7A56 /* GameData.swift */; };
+		9B4C15751BFF2A0F005D7A56 /* GameEnd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C15741BFF2A0F005D7A56 /* GameEnd.swift */; };
+		9B4C15771BFF3337005D7A56 /* GameLost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C15761BFF3337005D7A56 /* GameLost.swift */; };
+		9B4C15791BFF3847005D7A56 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B4C15781BFF3847005D7A56 /* GameKit.framework */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
 		B71F5913188484E7003F4D28 /* iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5909188484E7003F4D28 /* iPad.png */; };
@@ -177,6 +186,15 @@
 		927F61BF196C771E000F43EF /* OneDirectionSudoku Android.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OneDirectionSudoku Android.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B4C153C1BFE835E005D7A56 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		9B4C15421BFE837D005D7A56 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		9B4C15621BFEAACD005D7A56 /* Liam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Liam.swift; sourceTree = "<group>"; };
+		9B4C15641BFEB7A1005D7A56 /* Louis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Louis.swift; sourceTree = "<group>"; };
+		9B4C15661BFEB7AD005D7A56 /* Niall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Niall.swift; sourceTree = "<group>"; };
+		9B4C15681BFEB7BA005D7A56 /* Zayn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zayn.swift; sourceTree = "<group>"; };
+		9B4C15701BFF1EB7005D7A56 /* GameCenterInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCenterInteractor.swift; sourceTree = "<group>"; };
+		9B4C15721BFF1F1C005D7A56 /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
+		9B4C15741BFF2A0F005D7A56 /* GameEnd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEnd.swift; sourceTree = "<group>"; };
+		9B4C15761BFF3337005D7A56 /* GameLost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLost.swift; sourceTree = "<group>"; };
+		9B4C15781BFF3847005D7A56 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
 		B71F5909188484E7003F4D28 /* iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iPad.png; path = Icons/iPad.png; sourceTree = "<group>"; };
@@ -258,6 +276,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B4C15791BFF3847005D7A56 /* GameKit.framework in Frameworks */,
 				7A97911819E631CD001FFC4D /* libcocos2d.a in Frameworks */,
 				8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */,
 				B77F1B3217B978D7009739AE /* QuartzCore.framework in Frameworks */,
@@ -440,8 +459,16 @@
 			children = (
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				7A046D7519E84C36004C4763 /* MainScene.swift */,
+				9B4C15701BFF1EB7005D7A56 /* GameCenterInteractor.swift */,
+				9B4C15741BFF2A0F005D7A56 /* GameEnd.swift */,
+				9B4C15721BFF1F1C005D7A56 /* GameData.swift */,
 				9B4C153C1BFE835E005D7A56 /* Grid.swift */,
+				9B4C15761BFF3337005D7A56 /* GameLost.swift */,
+				9B4C15621BFEAACD005D7A56 /* Liam.swift */,
 				9B4C15421BFE837D005D7A56 /* Tile.swift */,
+				9B4C15641BFEB7A1005D7A56 /* Louis.swift */,
+				9B4C15661BFEB7AD005D7A56 /* Niall.swift */,
+				9B4C15681BFEB7BA005D7A56 /* Zayn.swift */,
 				D352B48019EC608A00829775 /* MetalShaders */,
 			);
 			name = Source;
@@ -493,6 +520,7 @@
 		B77F1B3017B978D7009739AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B4C15781BFF3847005D7A56 /* GameKit.framework */,
 				BC5399D31A44DCC90063F482 /* AndroidKit.framework */,
 				BC5399D41A44DCC90063F482 /* CoreJava.framework */,
 				BC5399D51A44DCC90063F482 /* GLActivityKit.framework */,
@@ -821,8 +849,16 @@
 				B73789871807631A0076A88C /* main.m in Sources */,
 				7A046D7919E84ED5004C4763 /* MainScene.swift in Sources */,
 				9B4C15431BFE837D005D7A56 /* Tile.swift in Sources */,
+				9B4C15771BFF3337005D7A56 /* GameLost.swift in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
+				9B4C15731BFF1F1C005D7A56 /* GameData.swift in Sources */,
+				9B4C15751BFF2A0F005D7A56 /* GameEnd.swift in Sources */,
+				9B4C15631BFEAACD005D7A56 /* Liam.swift in Sources */,
+				9B4C15651BFEB7A1005D7A56 /* Louis.swift in Sources */,
+				9B4C15671BFEB7AD005D7A56 /* Niall.swift in Sources */,
 				9B4C153D1BFE835E005D7A56 /* Grid.swift in Sources */,
+				9B4C15691BFEB7BA005D7A56 /* Zayn.swift in Sources */,
+				9B4C15711BFF1EB7005D7A56 /* GameCenterInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
