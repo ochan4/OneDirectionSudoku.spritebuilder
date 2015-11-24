@@ -106,7 +106,7 @@ class GameCenterInteractor: NSObject {
     }
     
     func reportHighScoreToGameCenter(){
-        var scoreReporter = GKScore(leaderboardIdentifier: "AyerDonaldTheTowerLeaderBoard")
+        var scoreReporter = GKScore(leaderboardIdentifier: "OneDirectionSudokuLeaderboard2")
         scoreReporter.value = Int64(GameStateSingleton.sharedInstance.highestscore)
         var scoreArray: [GKScore] = [scoreReporter]
         

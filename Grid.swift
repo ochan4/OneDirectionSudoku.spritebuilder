@@ -33,10 +33,12 @@ class Grid: CCNodeColor {
     //score system
     var total: Double = 0.0
     
-    var score: Int = GameStateSingleton.sharedInstance.highestscore {
+    var score: Int = 0
+    
+    var highestScore: Int = GameStateSingleton.sharedInstance.highestscore {
         didSet {
             var mainScene = parent as! MainScene
-            //mainScene.scoreLabel.string = "\(score)"
+            mainScene.highscoreLabel.string = "\(highestScore)"
         }
     }
     
@@ -61,7 +63,6 @@ class Grid: CCNodeColor {
         
         //4.
         setupGestures()
-        
         
     }
     
@@ -319,9 +320,7 @@ class Grid: CCNodeColor {
         // Update game data
         let mergedTile = gridArray[x][y]!
         let otherTile = gridArray[otherX][otherY]!
-        
-        //add points
-        scoreSystem()
+
         
         otherTile.mergedThisRound = true
         
@@ -351,30 +350,39 @@ class Grid: CCNodeColor {
     
     //gain score
     func scoreSystem() {
-        if score >= 0 && score < 100 {
-            score += 10
+        switch total {
+        case 0.11111:
+            score = 1
+        case 0.22222:
+            score = 2
+        case 0.33333:
+            score = 3
+        case 0.44444:
+            score = 4
+        case 0.55555:
+            score = 5
+        case 0.66666:
+            score = 6
+        case 0.77777:
+            score = 7
+        case 0.88888:
+            score = 8
+        default:
+            score = 0
         }
-        
-        if score >= 100 && score < 500 {
-            score += 20
-        }
-        
-        if score >= 500 && score < 2300 {
-            score += 30
-        }
-        
-        if score >= 2300 && score < 5600 {
-            score += 40
-        }
-        
-        if score >= 5600 && score < 10800 {
-            score += 60
-        }
-        if score >= 10800 && score < 10000000 {
-            score += 70
-        }
-        GameStateSingleton.sharedInstance.highestscore = score
+    }
+    
+    func checkForHighScore() {
+        scoreSystem()
+        var highscore = GameStateSingleton.sharedInstance.highestscore
+        if highscore > 500{
+        GameStateSingleton.sharedInstance.highestscore = 0
         GameCenterInteractor.sharedInstance.reportHighScoreToGameCenter()
+        }
+        if score > highscore {
+            GameStateSingleton.sharedInstance.highestscore = score
+            GameCenterInteractor.sharedInstance.reportHighScoreToGameCenter()
+        }
     }
     
     func deleteAnyValueThatIsZero() {
@@ -388,11 +396,16 @@ class Grid: CCNodeColor {
     
     func endTheGame() {
         var end: CCNode
-
-        if checkSudokuWin() == 0.88888 {
+        //assign score
+        checkSudokuWin()
+        //check if the score is the highest score
+        checkForHighScore()
+        
+        if total == 0.88888 {
             end = (CCBReader.load("GameEnd"))
             end.position = self.position
             addChild(end)
+
         }else{
             end = (CCBReader.load("GameLost"))
             end.position = self.position
@@ -433,13 +446,13 @@ class Grid: CCNodeColor {
     //    }
     
     //this function loop each
-    func checkSudokuWin() ->Double {
+    func checkSudokuWin(){
         //return value
         var win = true
         
         for j in 0..<gridSize {
             var count = 0.00001
-            
+
             for i in 0..<gridSize{
                 var tile = gridArray [i][j]
                 if tile != nil {
@@ -463,14 +476,16 @@ class Grid: CCNodeColor {
                         println(tile!.value)
                     }
                 }
-                
             }
-            if count != 0.11111 {
+            
+            if count == 0.11111 {
                 total += count
             }
             println("one line")
             println(count)
+            println(total)
             println("one line")
+
         }
         
         
@@ -501,14 +516,15 @@ class Grid: CCNodeColor {
                     }
                 }
             }
-            if count != 0.11111 {
+            if count == 0.11111 {
                 total += count
             }
+            
             println("one line")
             println(count)
+            println(total)
             println("one line")
         }
-        return total
     }
     
     func movePossible() -> Bool {

@@ -8,13 +8,17 @@ class MainScene: CCNode {
     weak var highscoreLabel: CCLabelTTF!
     
     
-//    func didLoadFromCCB (){
-//        NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "highscore", options: .allZeros, context: nil)
-//        
-//    }
-    
-    override func update(delta: CCTime) {
+    func didLoadFromCCB (){
+        //NSUserDefaults.standardUserDefaults().addObserver(self, forKeyPath: "highscore", options: .allZeros, context: nil)
+        setUpGameCenter()
         highscoreLabel.string = String(GameStateSingleton.sharedInstance.highestscore)
+    }
+
+    
+    //a function that authenticates your user
+    func setUpGameCenter() {
+        let gameCenterInteractor = GameCenterInteractor.sharedInstance
+        gameCenterInteractor.authenticationCheck()
     }
     
 //    func updateHighscore() {
